@@ -1,3 +1,5 @@
+install seaborn
+
 import streamlit as st
 import pandas as pd
 import seaborn as sns
@@ -39,8 +41,14 @@ with st.expander("Click to review the EDA steps taken"):
     DATA_URL = ("https://raw.githubusercontent.com/kanhgo/predictive_modeling/main/diabetes_012_health_indicators_BRFSS2015.csv?token=GHSAT0AAAAAACVB2WPUZHU24PYZRNZHVYUQZU5S5CA")
     @st.cache_data(persist=True) 
     def load_data():
-        data = pd.read_csv(DATA_URL)
-        return data
+        response = requests.get(DATA_URL)
+        if response.status_code == 200:
+            data = response.content.decode('utf-8')
+            df = pd.read_csv(StringIO(data))
+            return df
+        else:
+            st.error('Failed to load data')
+            return None
 
     # The cache decorator (indicated by @) ensures the function's output will be stored in memory (cached) after it's executed the 
     # first time. Subsequent calls to the function with the same input parameters will return the cached result instead of recomputing 

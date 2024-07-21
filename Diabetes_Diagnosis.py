@@ -36,7 +36,7 @@ with st.expander("Click to review the EDA steps taken"):
     st.code(code, language='python')
     
     # Create a function to load the data and save it to the cache
-    DATA_URL = ("/Users/kerry-annharris/Documents/Startwise/2024/Projects/Predictive_Modeling/Health_Indicators/Diabetes/archive/diabetes_012_health_indicators_BRFSS2015.csv")
+    DATA_URL = ("https://raw.githubusercontent.com/kanhgo/predictive_modeling/main/diabetes_012_health_indicators_BRFSS2015.csv?token=GHSAT0AAAAAACVB2WPUZHU24PYZRNZHVYUQZU5S5CA")
     @st.cache_data(persist=True) 
     def load_data():
         data = pd.read_csv(DATA_URL)

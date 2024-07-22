@@ -39,7 +39,7 @@ with st.expander("Click to review the EDA steps taken"):
     
     # Create a function to load the data and save it to the cache
     DATA_URL = ("https://raw.githubusercontent.com/kanhgo/predictive_modeling/main/diabetes_012_health_indicators_BRFSS2015.csv")
-    @st.cache_data(persist=True) 
+    @st.cache_data 
     def load_data():
         response = requests.get(DATA_URL)
         if response.status_code == 200:

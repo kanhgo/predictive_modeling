@@ -511,7 +511,7 @@ with st.expander("Click to review the process"):
     st.markdown("**Feature selection**")
     code18 = """
     # Created an instance of the logistic regression model
-    logmodel1 = LogisticRegression(multi_class='multinomial', solver='lbfgs', max_iter=400, random_state=42)
+    logmodel1 = LogisticRegression(multi_class='multinomial', solver='lbfgs', max_iter=500, random_state=42)
     """
     st.code(code18, language="python")
     logmodel1 = LogisticRegression(multi_class='multinomial', solver='lbfgs', max_iter=500)

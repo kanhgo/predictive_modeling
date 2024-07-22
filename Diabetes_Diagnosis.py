@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+import requests
 
 # Add a title to the main page
 st.title("EMPOWERING ACTION FOR BETTER HEALTH OUTCOMES")
@@ -32,6 +33,7 @@ with st.expander("Click to review the EDA steps taken"):
     import numpy as np
     import seaborn as sns
     import matplotlib.pyplot as plt
+    import requests
     """
     st.code(code, language='python')
     

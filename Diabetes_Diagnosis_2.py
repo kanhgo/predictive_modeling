@@ -677,13 +677,19 @@ with st.expander("Click to review the process"):
 
     print (optimal_num)
     print (Best_features)
+
+    12
+    Index(['HighBP', 'HighChol', 'CholCheck', 'BMI', 'Stroke',
+       'HeartDiseaseorAttack', 'HvyAlcoholConsump', 'NoDocbcCost', 'GenHlth',
+       'DiffWalk', 'Age', 'Income'],
+      dtype='object')
     """
-    st.code(code28, language="python")
-    rfecvXG = rfecvXG.fit(X_train, y_train)
-    optimal_num = rfecvXG.n_features_
-    Best_features = features[rfecvXG.support_]
-    st.write(optimal_num)
-    st.write(Best_features)
+    # st.code(code28, language="python")
+    # rfecvXG = rfecvXG.fit(X_train, y_train)
+    # optimal_num = rfecvXG.n_features_
+    # Best_features = features[rfecvXG.support_]
+    # st.write(optimal_num)
+    # st.write(Best_features)
 
     code29 = """
     # Tested the trained RFECV object i.e. made predictions using the re-sampled scaled x test data set
@@ -697,15 +703,15 @@ with st.expander("Click to review the process"):
     plt.xlabel('y_test')
     plt.ylabel('y_predicted')
     """    
-    st.code(code29, language="python")
-    y_predictXG = rfecvXG.predict(X_test)
-    st.write(classification_report(y_test, y_predictXG))
-    fig = plt.figure()
-    cm = confusion_matrix(y_test, y_predictXG)
-    sns.heatmap(cm, annot=True, fmt='d')
-    plt.xlabel('y_test')
-    plt.ylabel('y_predicted')
-    st.pyplot(fig)
+    # st.code(code29, language="python")
+    # y_predictXG = rfecvXG.predict(X_test)
+    # st.write(classification_report(y_test, y_predictXG))
+    # fig = plt.figure()
+    # cm = confusion_matrix(y_test, y_predictXG)
+    # sns.heatmap(cm, annot=True, fmt='d')
+    # plt.xlabel('y_test')
+    # plt.ylabel('y_predicted')
+    # st.pyplot(fig)
 
     st.markdown("""
     Even with a more sophisticated ensemble learning model, there was no improvement in the predictive model performance as accuracy remained at 0.50.

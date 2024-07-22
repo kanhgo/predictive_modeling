@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-import Requests as requests
+import requests
 
 # Add a title to the main page
 st.title("EMPOWERING ACTION FOR BETTER HEALTH OUTCOMES")

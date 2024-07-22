@@ -941,10 +941,7 @@ with st.expander("Click to review the approach to hyperparameter tuning"):
     # Generated quality measures
     print(classification_report(y_test2, y_predict3))
 
-    cm2 = confusion_matrix(y_test2, y_predict3)
-    sns.heatmap(cm2, annot=True, fmt='d')      # fmt stands for format and it is set to decimal
-    plt.xlabel('y_test')
-    plt.ylabel('y_predicted')
+    
     """
     st.code(code34, language="python")
     # logmodel3 = LogisticRegression(solver='sag', max_iter=400, C=100, random_state=42)

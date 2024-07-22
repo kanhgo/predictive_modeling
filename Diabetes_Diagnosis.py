@@ -1,10 +1,3 @@
-"""
-  You can now view your Streamlit app in your browser.
-
-  Local URL: http://localhost:8501
-  Network URL: http://192.168.1.3:8501
-"""
-
 import streamlit as st
 import pandas as pd
 import seaborn as sns
@@ -43,11 +36,17 @@ with st.expander("Click to review the EDA steps taken"):
     st.code(code, language='python')
     
     # Create a function to load the data and save it to the cache
-    DATA_URL = ("/Users/kerry-annharris/Documents/Startwise/2024/Projects/Predictive_Modeling/Health_Indicators/Diabetes/archive/diabetes_012_health_indicators_BRFSS2015.csv")
+    DATA_URL = ("https://raw.githubusercontent.com/kanhgo/predictive_modeling/main/diabetes_012_health_indicators_BRFSS2015.csv")
     @st.cache_data(persist=True) 
     def load_data():
-        data = pd.read_csv(DATA_URL)
-        return data
+        response = requests.get(DATA_URL)
+        if response.status_code == 200:
+          data = response.content.decode('utf-8')
+          df = pd.read_csv(StringIO(data))
+          return df
+        else:
+          st.error('Failed to load data')
+          return None
 
     # The cache decorator (indicated by @) ensures the function's output will be stored in memory (cached) after it's executed the 
     # first time. Subsequent calls to the function with the same input parameters will return the cached result instead of recomputing 

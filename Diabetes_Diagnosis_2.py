@@ -849,6 +849,7 @@ with st.expander("Click to review the approach to hyperparameter tuning"):
     print(f'Best parameters: {grid_search.best_params_}') # best_params_ is an attribute ot the grid_search object
     print(f'Best cross-validation score: {grid_search.best_score_}') # # best_score_ is an attribute ot the grid_search object
 
+
     Best parameters: {'C': 100, 'max_iter': 400, 'solver': 'sag'}
     Best cross-validation score: 0.7432735100745713
     """
@@ -907,6 +908,7 @@ with st.expander("Click to review the approach to hyperparameter tuning"):
     # plt.ylabel('y_predicted')
     # st.pyplot(fig)
 
+    
     st.markdown("""
                       precision    recall  f1-score   support
 
@@ -916,6 +918,7 @@ with st.expander("Click to review the approach to hyperparameter tuning"):
         accuracy                           0.74     15991
        macro avg       0.74      0.74      0.74     15991
     weighted avg       0.74      0.74      0.74     15991
+    
     
     There was no notable improvement in model performance with the hyperparameter tuning - accuracy remained at 0.74.
 
@@ -937,6 +940,7 @@ with st.expander("Click to review the approach to hyperparameter tuning"):
     formula = f'log_odds = {intercept:.4f} + '      # definition of the base formula structure
     formula += " + ".join(f'{coef:.4f}*{feat}' for coef, feat in zip(coefficients, features))   # use of zip to iterate over the coefficients and features lists together
     print("Logistic Regression formula:\n", formula)
+
 
     Model coefficients: [ 0.69859805  0.57242781  1.31884351  6.62451121  0.17269666  0.22394965
      -0.63670167  0.05890317  0.54642078 -0.07747214 -0.1869174   0.06530508

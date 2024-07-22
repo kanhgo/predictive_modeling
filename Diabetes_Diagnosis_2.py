@@ -514,7 +514,7 @@ with st.expander("Click to review the process"):
     logmodel1 = LogisticRegression(multi_class='multinomial', solver='lbfgs', max_iter=500, random_state=42)
     """
     st.code(code18, language="python")
-    logmodel1 = LogisticRegression(multi_class='multinomial', solver='lbfgs', max_iter=500)
+    # logmodel1 = LogisticRegression(multi_class='multinomial', solver='lbfgs', max_iter=500)
     st.markdown("The lbfgs solver is an optimization algorithm that is well-suited for multinomial (multi-class) logistic regression. It optimizes the likelihood for the entire multinomial model, rather than just a series of binary models. It is the default solver for a logistic regression model.")
 
     code19 = """
@@ -522,14 +522,14 @@ with st.expander("Click to review the process"):
     rfecv1 = RFECV(estimator = logmodel1, step=1, cv=5, scoring="accuracy", n_jobs=-1)
     """
     st.code(code19, language="python")
-    rfecv1 = RFECV(estimator = logmodel1, step=1, cv=5, scoring="accuracy", n_jobs=-1)
+    # rfecv1 = RFECV(estimator = logmodel1, step=1, cv=5, scoring="accuracy", n_jobs=-1)
 
     code20 = """
     # Trained the RFECV object: Fit the training data i.e. applied the feature selector object to the training data set.
     rfecv1 = rfecv1.fit(X_train_scaled1, y_train)
     """
     st.code(code20, language="python")
-    rfecv1 = rfecv1.fit(X_train_scaled1, y_train)
+    # rfecv1 = rfecv1.fit(X_train_scaled1, y_train)
 
     code21 = """
     # Checked the optimal number of features identified.
@@ -540,13 +540,22 @@ with st.expander("Click to review the process"):
     
     print (optimal_num)
     print (Best_features)
+
+
+
+    20
+    Index(['HighBP', 'HighChol', 'CholCheck', 'BMI', 'Smoker', 'Stroke',
+       'HeartDiseaseorAttack', 'PhysActivity', 'Veggies', 'HvyAlcoholConsump',
+       'AnyHealthcare', 'NoDocbcCost', 'GenHlth', 'MentHlth', 'PhysHlth',
+       'DiffWalk', 'Sex', 'Age', 'Education', 'Income'],
+      dtype='object')
     """
     st.code(code21, language="python")
-    optimal_num = rfecv1.n_features_
-    Best_features = features[rfecv1.support_]  
+    # optimal_num = rfecv1.n_features_
+    # Best_features = features[rfecv1.support_]  
     
-    st.write(optimal_num)
-    st.write(Best_features)    
+    # st.write(optimal_num)
+    # st.write(Best_features)    
 
     st.markdown("Recursive feature elimination with cross validation essentially allowed for the selection of the most relevant features from the dataset while simultaneously evaluating the performance of the model using cross-validation. The features were selected based on their impact on the model's performance.")
 
@@ -555,29 +564,36 @@ with st.expander("Click to review the process"):
     y_predict = rfecv1.predict(X_test_scaled1)
     """
     st.code(code22, language="python")
-    y_predict = rfecv1.predict(X_test_scaled1)
+    # y_predict = rfecv1.predict(X_test_scaled1)
 
     code23 = """
     # Evaluated the model's performance
 
     print(classification_report(y_test, y_predict))
 
-    cm = confusion_matrix(y_test, y_predict)
-    sns.heatmap(cm, annot=True, fmt='d')      # fmt stands for format and it is set to decimal
-    plt.xlabel('y_test')
-    plt.ylabel('y_predicted')
+
+
+                      precision    recall  f1-score   support
+    
+               0       0.59      0.65      0.62       934
+               1       0.42      0.29      0.34       924
+               2       0.51      0.63      0.56       921
+
+        accuracy                           0.52      2779
+       macro avg       0.51      0.52      0.51      2779
+    weighted avg       0.51      0.52      0.51      2779
     """
     st.code(code23, language="python")
-    st.write(classification_report(y_test, y_predict))
-
-    fig = plt.figure()
-    cm = confusion_matrix(y_test, y_predict)
-    sns.heatmap(cm, annot=True, fmt='d')
-    plt.xlabel('y_test')
-    plt.ylabel('y_predicted')    
-    st.pyplot(fig)
     st.markdown("At this stage, the quality metrics indicated a poor to average model performance, with an overall accuracy of 0.52. Notably, the non-diabetic (0) and diabetic (2) classes appeared to dominate or influence the model more (refer to recall and f1 scores.")
-    
+    # st.write(classification_report(y_test, y_predict))
+
+    # fig = plt.figure()
+    # cm = confusion_matrix(y_test, y_predict)
+    # sns.heatmap(cm, annot=True, fmt='d')
+    # plt.xlabel('y_test')
+    # plt.ylabel('y_predicted')    
+    # st.pyplot(fig)
+
 st.header("FEATURE AND MODEL SELECTION")
 st.subheader("RE-SAMPLED DATASET: A")
 st.subheader("Recursive feature elimination with cross validation using a random forest model (Dataset A)")
@@ -595,9 +611,9 @@ with st.expander("Click to review the process"):
     rfecvRF = RFECV(estimator = rfmodel, step=1, cv=5, scoring="accuracy", n_jobs=-1)
     """
     st.code(code24, language="python")
-    from sklearn.ensemble import RandomForestClassifier
-    rfmodel = RandomForestClassifier(n_estimators=100, random_state=42)
-    rfecvRF = RFECV(estimator = rfmodel, step=1, cv=5, scoring="accuracy", n_jobs=-1)    
+    # from sklearn.ensemble import RandomForestClassifier
+    # rfmodel = RandomForestClassifier(n_estimators=100, random_state=42)
+    # rfecvRF = RFECV(estimator = rfmodel, step=1, cv=5, scoring="accuracy", n_jobs=-1)    
     st.markdown("As discussed previously, some algorithms, like decision trees or random forests, are less sensitive to feature scaling. Trees split on the values of features directly and are therefore invariant to the scale or distribution of the feature values. The unscaled training and testing X-data was therefore used.")
 
     code25 = """
@@ -611,13 +627,22 @@ with st.expander("Click to review the process"):
     # Features refers to the list of columns (features)from X. Created at time of original split.
     print (optimal_num)
     print (Best_features)
+
+
+
+    20
+    Index(['HighBP', 'HighChol', 'BMI', 'Smoker', 'Stroke', 'HeartDiseaseorAttack',
+       'PhysActivity', 'Fruits', 'Veggies', 'HvyAlcoholConsump',
+       'AnyHealthcare', 'NoDocbcCost', 'GenHlth', 'MentHlth', 'PhysHlth',
+       'DiffWalk', 'Sex', 'Age', 'Education', 'Income'],
+      dtype='object')
     """
     st.code(code25, language="python")
-    rfecvRF = rfecvRF.fit(X_train, y_train)
-    optimal_num = rfecvRF.n_features_
-    Best_features = features[rfecvRF.support_]
-    st.write(optimal_num)
-    st.write(Best_features)
+    # rfecvRF = rfecvRF.fit(X_train, y_train)
+    # optimal_num = rfecvRF.n_features_
+    # Best_features = features[rfecvRF.support_]
+    # st.write(optimal_num)
+    # st.write(Best_features)
     
     code26 = """
     # Tested the trained RFECV object i.e. made predictions using the re-sampled scaled X test data set
@@ -626,21 +651,29 @@ with st.expander("Click to review the process"):
     # Evaluated the model's performance
     print(classification_report(y_test, y_predictRF))
 
-    cm = confusion_matrix(y_test, y_predictRF)
-    sns.heatmap(cm, annot=True, fmt='d')      # fmt stands for format and it is set to decimal
-    plt.xlabel('y_test')
-    plt.ylabel('y_predicted')
+
+
+                      precision    recall  f1-score   support
+
+               0       0.59      0.58      0.59       934
+               1       0.38      0.34      0.36       924
+               2       0.49      0.55      0.52       921
+
+        accuracy                           0.49      2779
+       macro avg       0.49      0.49      0.49      2779
+    weighted avg       0.49      0.49      0.49      2779
+
     """
     st.code(code26, language="python")
-    y_predictRF = rfecvRF.predict(X_test)
-    st.write(classification_report(y_test, y_predictRF))
+    # y_predictRF = rfecvRF.predict(X_test)
+    # st.write(classification_report(y_test, y_predictRF))
 
-    fig = plt.figure()
-    cm = confusion_matrix(y_test, y_predictRF)
-    sns.heatmap(cm, annot=True, fmt='d')      # fmt stands for format and it is set to decimal
-    plt.xlabel('y_test')
-    plt.ylabel('y_predicted')    
-    st.pyplot(fig)
+    # fig = plt.figure()
+    # cm = confusion_matrix(y_test, y_predictRF)
+    # sns.heatmap(cm, annot=True, fmt='d')      # fmt stands for format and it is set to decimal
+    # plt.xlabel('y_test')
+    # plt.ylabel('y_predicted')    
+    # st.pyplot(fig)
     st.markdown("Incorporation of an ensemble learning-method (random forest model) did not improve the performance.")
 
 st.header("FEATURE AND MODEL SELECTION")
@@ -661,9 +694,9 @@ with st.expander("Click to review the process"):
     rfecvXG = RFECV(estimator = xgbclf, step=1, cv=5, scoring="accuracy", n_jobs=-1)
     """
     st.code(code27, language="python")
-    import xgboost as xgb
-    xgbclf = xgb.XGBClassifier(random_state=42)
-    rfecvXG = RFECV(estimator = xgbclf, step=1, cv=5, scoring="accuracy", n_jobs=-1)
+    # import xgboost as xgb
+    # xgbclf = xgb.XGBClassifier(random_state=42)
+    # rfecvXG = RFECV(estimator = xgbclf, step=1, cv=5, scoring="accuracy", n_jobs=-1)
     st.markdown("XGBoost is based on decision trees. Trees split on the values of features directly and are therefore invariant to the scale or distribution of the feature values. The unscaled training and testing X-data was therefore used.")
 
     code28 = """
@@ -677,6 +710,7 @@ with st.expander("Click to review the process"):
 
     print (optimal_num)
     print (Best_features)
+
 
     12
     Index(['HighBP', 'HighChol', 'CholCheck', 'BMI', 'Stroke',
@@ -698,10 +732,16 @@ with st.expander("Click to review the process"):
     # Evaluated the model's performance
     print(classification_report(y_test, y_predictXG))
 
-    cm = confusion_matrix(y_test, y_predictXG)
-    sns.heatmap(cm, annot=True, fmt='d')      # fmt stands for format and it is set to decimal
-    plt.xlabel('y_test')
-    plt.ylabel('y_predicted')
+
+                  precision    recall  f1-score   support
+
+               0       0.59      0.59      0.59       934
+               1       0.40      0.33      0.36       924
+               2       0.50      0.58      0.54       921
+
+        accuracy                           0.50      2779
+       macro avg       0.50      0.50      0.50      2779
+    weighted avg       0.50      0.50      0.50      2779
     """    
     st.code(code29, language="python")
     # y_predictXG = rfecvXG.predict(X_test)
@@ -738,9 +778,9 @@ with st.expander("Click to review the process"):
     X_train2, X_test2, y_train2, y_test2 = train_test_split(X_resampled2, y_resampled2, test_size=0.2, random_state=42)
     """
     st.code(code30, language="python")
-    logmodel2 = LogisticRegression(solver='lbfgs', max_iter=300, random_state=42)
-    rfecv2 =  RFECV(estimator = logmodel2, step=1, cv=5, scoring="accuracy", n_jobs=-1)
-    X_train2, X_test2, y_train2, y_test2 = train_test_split(X_resampled2, y_resampled2, test_size=0.2, random_state=42)
+    # logmodel2 = LogisticRegression(solver='lbfgs', max_iter=300, random_state=42)
+    # rfecv2 =  RFECV(estimator = logmodel2, step=1, cv=5, scoring="accuracy", n_jobs=-1)
+    # X_train2, X_test2, y_train2, y_test2 = train_test_split(X_resampled2, y_resampled2, test_size=0.2, random_state=42)
     
     st.markdown("**Scaling of the continuous X data**")
     st.markdown("Necessary to handle the difference in scale of the variables. This aids model optimization.")
@@ -769,22 +809,30 @@ with st.expander("Click to review the process"):
 
     print (optimal_num)
     print (Best_features)
+
+
+    16
+    Index(['HighBP', 'HighChol', 'CholCheck', 'BMI', 'Stroke',
+       'HeartDiseaseorAttack', 'HvyAlcoholConsump', 'NoDocbcCost', 'GenHlth',
+       'MentHlth', 'PhysHlth', 'DiffWalk', 'Sex', 'Age', 'Education',
+       'Income'],
+      dtype='object')
     """
     st.code(code31, language="python")
-    scaler2 = MinMaxScaler()
+    # scaler2 = MinMaxScaler()
     
-    X_train_scaled2 = X_train2.copy()
-    X_test_scaled2 = X_test2.copy()
+    # X_train_scaled2 = X_train2.copy()
+    # X_test_scaled2 = X_test2.copy()
 
-    X_train_scaled2[['BMI', 'MentHlth', 'PhysHlth']] = scaler2.fit_transform(X_train2[['BMI', 'MentHlth', 'PhysHlth']])
-    X_test_scaled2[['BMI', 'MentHlth', 'PhysHlth']] = scaler2.transform(X_test2[['BMI', 'MentHlth', 'PhysHlth']])
+    # X_train_scaled2[['BMI', 'MentHlth', 'PhysHlth']] = scaler2.fit_transform(X_train2[['BMI', 'MentHlth', 'PhysHlth']])
+    # X_test_scaled2[['BMI', 'MentHlth', 'PhysHlth']] = scaler2.transform(X_test2[['BMI', 'MentHlth', 'PhysHlth']])
 
-    rfecv2 = rfecv2.fit(X_train_scaled2, y_train2)
+    # rfecv2 = rfecv2.fit(X_train_scaled2, y_train2)
 
-    optimal_num = rfecv2.n_features_
-    Best_features = features[rfecv2.support_]
-    st.write(optimal_num)
-    st.write(Best_features)
+    # optimal_num = rfecv2.n_features_
+    # Best_features = features[rfecv2.support_]
+    # st.write(optimal_num)
+    # st.write(Best_features)
     
     code32 = """
     # Tested the trained RFECV object i.e. made predictions using the re-sampled scaled X test data set
@@ -793,22 +841,28 @@ with st.expander("Click to review the process"):
     # Evaluated the model's performance
     print(classification_report(y_test2, y_predict2))
 
-    cm1 = confusion_matrix(y_test2, y_predict2)
-    sns.heatmap(cm1, annot=True, fmt='d')      # fmt stands for format and it is set to decimal
-    plt.xlabel('y_test')
-    plt.ylabel('y_predicted')
+
+                      precision    recall  f1-score   support
+
+               0       0.75      0.72      0.74      8027
+               1       0.73      0.76      0.74      7964
+
+        accuracy                           0.74     15991
+       macro avg       0.74      0.74      0.74     15991
+    weighted avg       0.74      0.74      0.74     15991
+
     """
     st.code(code32, language="python")
-    y_predict2 = rfecv2.predict(X_test_scaled2)
+    # y_predict2 = rfecv2.predict(X_test_scaled2)
 
-    st.write(classification_report(y_test2, y_predict2))
+    # st.write(classification_report(y_test2, y_predict2))
 
-    fig = plt.figure()
-    cm1 = confusion_matrix(y_test2, y_predict2)
-    sns.heatmap(cm1, annot=True, fmt='d')      # fmt stands for format and it is set to decimal
-    plt.xlabel('y_test')
-    plt.ylabel('y_predicted')    
-    st.pyplot(fig)
+    # fig = plt.figure()
+    # cm1 = confusion_matrix(y_test2, y_predict2)
+    # sns.heatmap(cm1, annot=True, fmt='d')      # fmt stands for format and it is set to decimal
+    # plt.xlabel('y_test')
+    # plt.ylabel('y_predicted')    
+    # st.pyplot(fig)
     st.markdown("""
     The decision to move to a binary dataset and thereby reduce the extent of random undersampling required to address the class imbalance, was shown to be beneficial. Accuracy was reported at 0.75 and was a balanced representation of both diabetes health status classes.
 

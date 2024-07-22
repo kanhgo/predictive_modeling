@@ -44,7 +44,7 @@ with st.expander("Click to review the EDA steps taken"):
         response = requests.get(DATA_URL)
         if response.status_code == 200:
           data = response.content.decode('utf-8')
-          df = pd.read_csv(StringIO(data))
+          df = pd.read_csv(data)
           return df
         else:
           st.error('Failed to load data')

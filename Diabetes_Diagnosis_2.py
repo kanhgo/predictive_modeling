@@ -476,10 +476,10 @@ with st.expander("Click to review the process"):
     from sklearn.metrics import classification_report, confusion_matrix     # For validation of the model performance
     """
     st.code(code16, language = 'python')
-    from sklearn.feature_selection import RFECV # for recursive feature selection
-    from sklearn.model_selection import train_test_split   # For splitting the data
-    from sklearn.linear_model import LogisticRegression   # For creating an instance of the regression model
-    from sklearn.metrics import classification_report, confusion_matrix     # For validation of the model performance
+    # from sklearn.feature_selection import RFECV # for recursive feature selection
+    # from sklearn.model_selection import train_test_split   # For splitting the data
+    # from sklearn.linear_model import LogisticRegression   # For creating an instance of the regression model
+    # from sklearn.metrics import classification_report, confusion_matrix     # For validation of the model performance
 
     st.markdown("**Scaling of the continuous X data**")
     code17 = """
@@ -497,16 +497,16 @@ with st.expander("Click to review the process"):
     """
     st.code(code17, language='python')
     # Created an instance of the MinMaxScaler
-    scaler = MinMaxScaler()
+    # scaler = MinMaxScaler()
 
-    X_train_scaled1 = X_train.copy()
-    X_test_scaled1 = X_test.copy()
+    # X_train_scaled1 = X_train.copy()
+    # X_test_scaled1 = X_test.copy()
 
     # Fitted and transformed the training X data i.e. scaled / standardized the training X data
-    X_train_scaled1[['BMI', 'MentHlth', 'PhysHlth']] = scaler.fit_transform(X_train[['BMI', 'MentHlth', 'PhysHlth']])
+    # X_train_scaled1[['BMI', 'MentHlth', 'PhysHlth']] = scaler.fit_transform(X_train[['BMI', 'MentHlth', 'PhysHlth']])
 
     # Transformed the test X data using the fitted scaler
-    X_test_scaled1[['BMI', 'MentHlth', 'PhysHlth']] = scaler.transform(X_test[['BMI', 'MentHlth', 'PhysHlth']])
+    # X_test_scaled1[['BMI', 'MentHlth', 'PhysHlth']] = scaler.transform(X_test[['BMI', 'MentHlth', 'PhysHlth']])
 
     st.markdown("**Feature selection**")
     code18 = """

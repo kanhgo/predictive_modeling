@@ -476,10 +476,6 @@ with st.expander("Click to review the process"):
     from sklearn.metrics import classification_report, confusion_matrix     # For validation of the model performance
     """
     st.code(code16, language = 'python')
-    # from sklearn.feature_selection import RFECV # for recursive feature selection
-    # from sklearn.model_selection import train_test_split   # For splitting the data
-    # from sklearn.linear_model import LogisticRegression   # For creating an instance of the regression model
-    # from sklearn.metrics import classification_report, confusion_matrix     # For validation of the model performance
 
     st.markdown("**Scaling of the continuous X data**")
     code17 = """
@@ -496,17 +492,6 @@ with st.expander("Click to review the process"):
     X_test_scaled1[['BMI', 'MentHlth', 'PhysHlth']] = scaler.transform(X_test[['BMI', 'MentHlth', 'PhysHlth']])
     """
     st.code(code17, language='python')
-    # Created an instance of the MinMaxScaler
-    # scaler = MinMaxScaler()
-
-    # X_train_scaled1 = X_train.copy()
-    # X_test_scaled1 = X_test.copy()
-
-    # Fitted and transformed the training X data i.e. scaled / standardized the training X data
-    # X_train_scaled1[['BMI', 'MentHlth', 'PhysHlth']] = scaler.fit_transform(X_train[['BMI', 'MentHlth', 'PhysHlth']])
-
-    # Transformed the test X data using the fitted scaler
-    # X_test_scaled1[['BMI', 'MentHlth', 'PhysHlth']] = scaler.transform(X_test[['BMI', 'MentHlth', 'PhysHlth']])
 
     st.markdown("**Feature selection**")
     code18 = """
@@ -514,7 +499,7 @@ with st.expander("Click to review the process"):
     logmodel1 = LogisticRegression(multi_class='multinomial', solver='lbfgs', max_iter=500, random_state=42)
     """
     st.code(code18, language="python")
-    # logmodel1 = LogisticRegression(multi_class='multinomial', solver='lbfgs', max_iter=500)
+    
     st.markdown("The lbfgs solver is an optimization algorithm that is well-suited for multinomial (multi-class) logistic regression. It optimizes the likelihood for the entire multinomial model, rather than just a series of binary models. It is the default solver for a logistic regression model.")
 
     code19 = """
@@ -522,14 +507,13 @@ with st.expander("Click to review the process"):
     rfecv1 = RFECV(estimator = logmodel1, step=1, cv=5, scoring="accuracy", n_jobs=-1)
     """
     st.code(code19, language="python")
-    # rfecv1 = RFECV(estimator = logmodel1, step=1, cv=5, scoring="accuracy", n_jobs=-1)
+   
 
     code20 = """
     # Trained the RFECV object: Fit the training data i.e. applied the feature selector object to the training data set.
     rfecv1 = rfecv1.fit(X_train_scaled1, y_train)
     """
     st.code(code20, language="python")
-    # rfecv1 = rfecv1.fit(X_train_scaled1, y_train)
 
     code21 = """
     # Checked the optimal number of features identified.
@@ -551,12 +535,7 @@ with st.expander("Click to review the process"):
       dtype='object')
     """
     st.code(code21, language="python")
-    # optimal_num = rfecv1.n_features_
-    # Best_features = features[rfecv1.support_]  
     
-    # st.write(optimal_num)
-    # st.write(Best_features)    
-
     st.markdown("Recursive feature elimination with cross validation essentially allowed for the selection of the most relevant features from the dataset while simultaneously evaluating the performance of the model using cross-validation. The features were selected based on their impact on the model's performance.")
 
     code22 = """
@@ -564,7 +543,6 @@ with st.expander("Click to review the process"):
     y_predict = rfecv1.predict(X_test_scaled1)
     """
     st.code(code22, language="python")
-    # y_predict = rfecv1.predict(X_test_scaled1)
 
     code23 = """
     # Evaluated the model's performance
@@ -585,14 +563,7 @@ with st.expander("Click to review the process"):
     """
     st.code(code23, language="python")
     st.markdown("At this stage, the quality metrics indicated a poor to average model performance, with an overall accuracy of 0.52. Notably, the non-diabetic (0) and diabetic (2) classes appeared to dominate or influence the model more (refer to recall and f1 scores.")
-    # st.write(classification_report(y_test, y_predict))
 
-    # fig = plt.figure()
-    # cm = confusion_matrix(y_test, y_predict)
-    # sns.heatmap(cm, annot=True, fmt='d')
-    # plt.xlabel('y_test')
-    # plt.ylabel('y_predicted')    
-    # st.pyplot(fig)
 
 st.header("FEATURE AND MODEL SELECTION")
 st.subheader("RE-SAMPLED DATASET: A")
@@ -611,9 +582,7 @@ with st.expander("Click to review the process"):
     rfecvRF = RFECV(estimator = rfmodel, step=1, cv=5, scoring="accuracy", n_jobs=-1)
     """
     st.code(code24, language="python")
-    # from sklearn.ensemble import RandomForestClassifier
-    # rfmodel = RandomForestClassifier(n_estimators=100, random_state=42)
-    # rfecvRF = RFECV(estimator = rfmodel, step=1, cv=5, scoring="accuracy", n_jobs=-1)    
+
     st.markdown("As discussed previously, some algorithms, like decision trees or random forests, are less sensitive to feature scaling. Trees split on the values of features directly and are therefore invariant to the scale or distribution of the feature values. The unscaled training and testing X-data was therefore used.")
 
     code25 = """
@@ -638,11 +607,6 @@ with st.expander("Click to review the process"):
       dtype='object')
     """
     st.code(code25, language="python")
-    # rfecvRF = rfecvRF.fit(X_train, y_train)
-    # optimal_num = rfecvRF.n_features_
-    # Best_features = features[rfecvRF.support_]
-    # st.write(optimal_num)
-    # st.write(Best_features)
     
     code26 = """
     # Tested the trained RFECV object i.e. made predictions using the re-sampled scaled X test data set
@@ -665,15 +629,7 @@ with st.expander("Click to review the process"):
 
     """
     st.code(code26, language="python")
-    # y_predictRF = rfecvRF.predict(X_test)
-    # st.write(classification_report(y_test, y_predictRF))
-
-    # fig = plt.figure()
-    # cm = confusion_matrix(y_test, y_predictRF)
-    # sns.heatmap(cm, annot=True, fmt='d')      # fmt stands for format and it is set to decimal
-    # plt.xlabel('y_test')
-    # plt.ylabel('y_predicted')    
-    # st.pyplot(fig)
+  
     st.markdown("Incorporation of an ensemble learning-method (random forest model) did not improve the performance.")
 
 st.header("FEATURE AND MODEL SELECTION")
@@ -694,9 +650,7 @@ with st.expander("Click to review the process"):
     rfecvXG = RFECV(estimator = xgbclf, step=1, cv=5, scoring="accuracy", n_jobs=-1)
     """
     st.code(code27, language="python")
-    # import xgboost as xgb
-    # xgbclf = xgb.XGBClassifier(random_state=42)
-    # rfecvXG = RFECV(estimator = xgbclf, step=1, cv=5, scoring="accuracy", n_jobs=-1)
+
     st.markdown("XGBoost is based on decision trees. Trees split on the values of features directly and are therefore invariant to the scale or distribution of the feature values. The unscaled training and testing X-data was therefore used.")
 
     code28 = """
@@ -719,11 +673,6 @@ with st.expander("Click to review the process"):
       dtype='object')
     """
     st.code(code28, language="python")
-    # rfecvXG = rfecvXG.fit(X_train, y_train)
-    # optimal_num = rfecvXG.n_features_
-    # Best_features = features[rfecvXG.support_]
-    # st.write(optimal_num)
-    # st.write(Best_features)
 
     code29 = """
     # Tested the trained RFECV object i.e. made predictions using the re-sampled scaled x test data set
@@ -744,14 +693,6 @@ with st.expander("Click to review the process"):
     weighted avg       0.50      0.50      0.50      2779
     """    
     st.code(code29, language="python")
-    # y_predictXG = rfecvXG.predict(X_test)
-    # st.write(classification_report(y_test, y_predictXG))
-    # fig = plt.figure()
-    # cm = confusion_matrix(y_test, y_predictXG)
-    # sns.heatmap(cm, annot=True, fmt='d')
-    # plt.xlabel('y_test')
-    # plt.ylabel('y_predicted')
-    # st.pyplot(fig)
 
     st.markdown("""
     Even with a more sophisticated ensemble learning model, there was no improvement in the predictive model performance as accuracy remained at 0.50.
@@ -778,10 +719,7 @@ with st.expander("Click to review the process"):
     X_train2, X_test2, y_train2, y_test2 = train_test_split(X_resampled2, y_resampled2, test_size=0.2, random_state=42)
     """
     st.code(code30, language="python")
-    # logmodel2 = LogisticRegression(solver='lbfgs', max_iter=300, random_state=42)
-    # rfecv2 =  RFECV(estimator = logmodel2, step=1, cv=5, scoring="accuracy", n_jobs=-1)
-    # X_train2, X_test2, y_train2, y_test2 = train_test_split(X_resampled2, y_resampled2, test_size=0.2, random_state=42)
-    
+     
     st.markdown("**Scaling of the continuous X data**")
     st.markdown("Necessary to handle the difference in scale of the variables. This aids model optimization.")
 
@@ -819,20 +757,6 @@ with st.expander("Click to review the process"):
       dtype='object')
     """
     st.code(code31, language="python")
-    # scaler2 = MinMaxScaler()
-    
-    # X_train_scaled2 = X_train2.copy()
-    # X_test_scaled2 = X_test2.copy()
-
-    # X_train_scaled2[['BMI', 'MentHlth', 'PhysHlth']] = scaler2.fit_transform(X_train2[['BMI', 'MentHlth', 'PhysHlth']])
-    # X_test_scaled2[['BMI', 'MentHlth', 'PhysHlth']] = scaler2.transform(X_test2[['BMI', 'MentHlth', 'PhysHlth']])
-
-    # rfecv2 = rfecv2.fit(X_train_scaled2, y_train2)
-
-    # optimal_num = rfecv2.n_features_
-    # Best_features = features[rfecv2.support_]
-    # st.write(optimal_num)
-    # st.write(Best_features)
     
     code32 = """
     # Tested the trained RFECV object i.e. made predictions using the re-sampled scaled X test data set
@@ -853,16 +777,7 @@ with st.expander("Click to review the process"):
 
     """
     st.code(code32, language="python")
-    # y_predict2 = rfecv2.predict(X_test_scaled2)
 
-    # st.write(classification_report(y_test2, y_predict2))
-
-    # fig = plt.figure()
-    # cm1 = confusion_matrix(y_test2, y_predict2)
-    # sns.heatmap(cm1, annot=True, fmt='d')      # fmt stands for format and it is set to decimal
-    # plt.xlabel('y_test')
-    # plt.ylabel('y_predicted')    
-    # st.pyplot(fig)
     st.markdown("""
     The decision to move to a binary dataset and thereby reduce the extent of random undersampling required to address the class imbalance, was shown to be beneficial. Accuracy was reported at 0.75 and was a balanced representation of both diabetes health status classes.
 
@@ -908,23 +823,6 @@ with st.expander("Click to review the approach to hyperparameter tuning"):
     Best cross-validation score: 0.7432735100745713
     """
     st.code(code33, language="python")
-    # X_train_scaled_best = X_train_scaled2[['HighBP', 'HighChol', 'CholCheck', 'BMI', 'Stroke', 'HeartDiseaseorAttack', 'HvyAlcoholConsump', 
-    #                               'NoDocbcCost', 'GenHlth', 'MentHlth', 'PhysHlth', 'DiffWalk', 'Sex', 'Age', 'Education', 'Income']]
-
-    # X_test_scaled_best = X_test_scaled2[['HighBP', 'HighChol', 'CholCheck', 'BMI', 'Stroke', 'HeartDiseaseorAttack', 'HvyAlcoholConsump', 
-    #                               'NoDocbcCost', 'GenHlth', 'MentHlth', 'PhysHlth', 'DiffWalk', 'Sex', 'Age', 'Education', 'Income']]
-
-    # from sklearn.model_selection import GridSearchCV
-    # param_grid = {'solver': ['newton-cg', 'lbfgs', 'sag'],  # most common solvers for large datasets
-    #           'max_iter':[200, 300, 400, 500], 
-    #           'C': [0.01, 0.1, 1, 10, 100]}    #typical range for regularization strengths
-
-    # grid_search = GridSearchCV(estimator=logmodel2, param_grid=param_grid, cv=5, scoring='accuracy') # logmodel2 maintained
-
-    # grid_search.fit(X_train_scaled_best, y_train2)
-
-    # st.write(f'Best parameters: {grid_search.best_params_}') # best_params_ is an attribute ot the grid_search object
-    # st.write(f'Best cross-validation score: {grid_search.best_score_}') # best_score_ is an attribute ot the grid_search object    
 
     code34 = """
     # Application and testing of best parameters and evaluation of the performance
@@ -953,21 +851,6 @@ with st.expander("Click to review the approach to hyperparameter tuning"):
     weighted avg       0.74      0.74      0.74     15991
     """
     st.code(code34, language="python")
-    # logmodel3 = LogisticRegression(solver='sag', max_iter=400, C=100, random_state=42)
-
-    # logmodel3.fit(X_train_scaled_best, y_train2)
-
-    # y_predict3 = logmodel3.predict(X_test_scaled_best)
-
-    # st.write(classification_report(y_test2, y_predict3))
-
-    # fig = plt.figure()
-    # cm2 = confusion_matrix(y_test2, y_predict3)
-    # sns.heatmap(cm2, annot=True, fmt='d')      # fmt stands for format and it is set to decimal
-    # plt.xlabel('y_test')
-    # plt.ylabel('y_predicted')
-    # st.pyplot(fig)
-
     
     st.markdown("""
     There was no notable improvement in model performance with the hyperparameter tuning - accuracy remained at 0.74.
@@ -1002,21 +885,7 @@ with st.expander("Click to review the approach to hyperparameter tuning"):
     log_odds = -5.6734 + 0.6986*HighBP + 0.5724*HighChol + 1.3188*CholCheck + 6.6245*BMI + 0.1727*Stroke + 0.2239*HeartDiseaseorAttack + -0.6367*HvyAlcoholConsump + 0.0589*NoDocbcCost + 0.5464*GenHlth + -0.0775*MentHlth + -0.1869*PhysHlth + 0.0653*DiffWalk + 0.2500*Sex + 0.1488*Age + -0.0475*Education + -0.0678*Income
     """
     st.code(code35, language="python")
-    # coefficients = logmodel3.coef_[0]      # Extraction of the coefficients of the model using the coef_ attribute
-    # intercept = logmodel3.intercept_[0]    # Extraction of the intercept of the model using the intercept_ attribute
-
-    # # Print coefficients and intercept
-    # st.write("Model coefficients:", coefficients)
-    # st.write(" ")
-    # st.write("Intercept:", intercept)
-    # st.write(" ")
-
-    # # Create a formula for the logistic regression model
-    # features = X_train_scaled_best.columns     # identification of the best features identified and used
-    # formula = f'log_odds = {intercept:.4f} + '      # definition of the base formula structure
-    # formula += " + ".join(f'{coef:.4f}*{feat}' for coef, feat in zip(coefficients, features))   # use of zip to iterate over the coefficients and features lists together
-    # st.write("Logistic Regression formula:\n", formula)    
-
+ 
 st.header("CONCLUSIONS")
 st.markdown("""
 This exercise demonstrated the potential for using predicitve modeling in healthcare planning for better future outcomes. Understanding which factors can indicate the likelihood of developing diabetes or any other disease, empowers individuals to act rather than respond.

@@ -514,7 +514,7 @@ with st.expander("Click to review the process"):
     logmodel1 = LogisticRegression(multi_class='multinomial', solver='lbfgs', max_iter=400, random_state=42)
     """
     st.code(code18, language="python")
-    logmodel1 = LogisticRegression(multi_class='multinomial', solver='lbfgs', max_iter=400)
+    logmodel1 = LogisticRegression(multi_class='multinomial', solver='lbfgs', max_iter=500)
     st.markdown("The lbfgs solver is an optimization algorithm that is well-suited for multinomial (multi-class) logistic regression. It optimizes the likelihood for the entire multinomial model, rather than just a series of binary models. It is the default solver for a logistic regression model.")
 
     code19 = """

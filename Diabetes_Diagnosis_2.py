@@ -848,25 +848,28 @@ with st.expander("Click to review the approach to hyperparameter tuning"):
 
     print(f'Best parameters: {grid_search.best_params_}') # best_params_ is an attribute ot the grid_search object
     print(f'Best cross-validation score: {grid_search.best_score_}') # # best_score_ is an attribute ot the grid_search object
+
+    Best parameters: {'C': 100, 'max_iter': 400, 'solver': 'sag'}
+    Best cross-validation score: 0.7432735100745713
     """
     st.code(code33, language="python")
-    X_train_scaled_best = X_train_scaled2[['HighBP', 'HighChol', 'CholCheck', 'BMI', 'Stroke', 'HeartDiseaseorAttack', 'HvyAlcoholConsump', 
-                                  'NoDocbcCost', 'GenHlth', 'MentHlth', 'PhysHlth', 'DiffWalk', 'Sex', 'Age', 'Education', 'Income']]
+    # X_train_scaled_best = X_train_scaled2[['HighBP', 'HighChol', 'CholCheck', 'BMI', 'Stroke', 'HeartDiseaseorAttack', 'HvyAlcoholConsump', 
+    #                               'NoDocbcCost', 'GenHlth', 'MentHlth', 'PhysHlth', 'DiffWalk', 'Sex', 'Age', 'Education', 'Income']]
 
-    X_test_scaled_best = X_test_scaled2[['HighBP', 'HighChol', 'CholCheck', 'BMI', 'Stroke', 'HeartDiseaseorAttack', 'HvyAlcoholConsump', 
-                                  'NoDocbcCost', 'GenHlth', 'MentHlth', 'PhysHlth', 'DiffWalk', 'Sex', 'Age', 'Education', 'Income']]
+    # X_test_scaled_best = X_test_scaled2[['HighBP', 'HighChol', 'CholCheck', 'BMI', 'Stroke', 'HeartDiseaseorAttack', 'HvyAlcoholConsump', 
+    #                               'NoDocbcCost', 'GenHlth', 'MentHlth', 'PhysHlth', 'DiffWalk', 'Sex', 'Age', 'Education', 'Income']]
 
-    from sklearn.model_selection import GridSearchCV
-    param_grid = {'solver': ['newton-cg', 'lbfgs', 'sag'],  # most common solvers for large datasets
-              'max_iter':[200, 300, 400, 500], 
-              'C': [0.01, 0.1, 1, 10, 100]}    #typical range for regularization strengths
+    # from sklearn.model_selection import GridSearchCV
+    # param_grid = {'solver': ['newton-cg', 'lbfgs', 'sag'],  # most common solvers for large datasets
+    #           'max_iter':[200, 300, 400, 500], 
+    #           'C': [0.01, 0.1, 1, 10, 100]}    #typical range for regularization strengths
 
-    grid_search = GridSearchCV(estimator=logmodel2, param_grid=param_grid, cv=5, scoring='accuracy') # logmodel2 maintained
+    # grid_search = GridSearchCV(estimator=logmodel2, param_grid=param_grid, cv=5, scoring='accuracy') # logmodel2 maintained
 
-    grid_search.fit(X_train_scaled_best, y_train2)
+    # grid_search.fit(X_train_scaled_best, y_train2)
 
-    st.write(f'Best parameters: {grid_search.best_params_}') # best_params_ is an attribute ot the grid_search object
-    st.write(f'Best cross-validation score: {grid_search.best_score_}') # best_score_ is an attribute ot the grid_search object    
+    # st.write(f'Best parameters: {grid_search.best_params_}') # best_params_ is an attribute ot the grid_search object
+    # st.write(f'Best cross-validation score: {grid_search.best_score_}') # best_score_ is an attribute ot the grid_search object    
 
     code34 = """
     # Application and testing of best parameters and evaluation of the performance
@@ -889,23 +892,32 @@ with st.expander("Click to review the approach to hyperparameter tuning"):
     plt.ylabel('y_predicted')
     """
     st.code(code34, language="python")
-    logmodel3 = LogisticRegression(solver='sag', max_iter=400, C=100, random_state=42)
+    # logmodel3 = LogisticRegression(solver='sag', max_iter=400, C=100, random_state=42)
 
-    logmodel3.fit(X_train_scaled_best, y_train2)
+    # logmodel3.fit(X_train_scaled_best, y_train2)
 
-    y_predict3 = logmodel3.predict(X_test_scaled_best)
+    # y_predict3 = logmodel3.predict(X_test_scaled_best)
 
-    st.write(classification_report(y_test2, y_predict3))
+    # st.write(classification_report(y_test2, y_predict3))
 
-    fig = plt.figure()
-    cm2 = confusion_matrix(y_test2, y_predict3)
-    sns.heatmap(cm2, annot=True, fmt='d')      # fmt stands for format and it is set to decimal
-    plt.xlabel('y_test')
-    plt.ylabel('y_predicted')
-    st.pyplot(fig)
+    # fig = plt.figure()
+    # cm2 = confusion_matrix(y_test2, y_predict3)
+    # sns.heatmap(cm2, annot=True, fmt='d')      # fmt stands for format and it is set to decimal
+    # plt.xlabel('y_test')
+    # plt.ylabel('y_predicted')
+    # st.pyplot(fig)
 
     st.markdown("""
-    There was no notable improvement in model performance with the hyperparameter tuning.
+                      precision    recall  f1-score   support
+
+               0       0.75      0.73      0.74      8027
+               1       0.73      0.75      0.74      7964
+
+        accuracy                           0.74     15991
+       macro avg       0.74      0.74      0.74     15991
+    weighted avg       0.74      0.74      0.74     15991
+    
+    There was no notable improvement in model performance with the hyperparameter tuning - accuracy remained at 0.74.
 
     The use of emsemble learning models such as random forests and gradient boosting machines did not improve performance when working with version "A" of this dataset and therefore it was anticipated that no further improvement would be achieved by considering those models here.""")
 
@@ -925,22 +937,31 @@ with st.expander("Click to review the approach to hyperparameter tuning"):
     formula = f'log_odds = {intercept:.4f} + '      # definition of the base formula structure
     formula += " + ".join(f'{coef:.4f}*{feat}' for coef, feat in zip(coefficients, features))   # use of zip to iterate over the coefficients and features lists together
     print("Logistic Regression formula:\n", formula)
+
+    Model coefficients: [ 0.69859805  0.57242781  1.31884351  6.62451121  0.17269666  0.22394965
+     -0.63670167  0.05890317  0.54642078 -0.07747214 -0.1869174   0.06530508
+      0.24998176  0.14875458 -0.04751266 -0.06777161]
+ 
+    Intercept: -5.673398823595133
+ 
+    Logistic Regression formula:
+    log_odds = -5.6734 + 0.6986*HighBP + 0.5724*HighChol + 1.3188*CholCheck + 6.6245*BMI + 0.1727*Stroke + 0.2239*HeartDiseaseorAttack + -0.6367*HvyAlcoholConsump + 0.0589*NoDocbcCost + 0.5464*GenHlth + -0.0775*MentHlth + -0.1869*PhysHlth + 0.0653*DiffWalk + 0.2500*Sex + 0.1488*Age + -0.0475*Education + -0.0678*Income
     """
     st.code(code35, language="python")
-    coefficients = logmodel3.coef_[0]      # Extraction of the coefficients of the model using the coef_ attribute
-    intercept = logmodel3.intercept_[0]    # Extraction of the intercept of the model using the intercept_ attribute
+    # coefficients = logmodel3.coef_[0]      # Extraction of the coefficients of the model using the coef_ attribute
+    # intercept = logmodel3.intercept_[0]    # Extraction of the intercept of the model using the intercept_ attribute
 
-    # Print coefficients and intercept
-    st.write("Model coefficients:", coefficients)
-    st.write(" ")
-    st.write("Intercept:", intercept)
-    st.write(" ")
+    # # Print coefficients and intercept
+    # st.write("Model coefficients:", coefficients)
+    # st.write(" ")
+    # st.write("Intercept:", intercept)
+    # st.write(" ")
 
-    # Create a formula for the logistic regression model
-    features = X_train_scaled_best.columns     # identification of the best features identified and used
-    formula = f'log_odds = {intercept:.4f} + '      # definition of the base formula structure
-    formula += " + ".join(f'{coef:.4f}*{feat}' for coef, feat in zip(coefficients, features))   # use of zip to iterate over the coefficients and features lists together
-    st.write("Logistic Regression formula:\n", formula)    
+    # # Create a formula for the logistic regression model
+    # features = X_train_scaled_best.columns     # identification of the best features identified and used
+    # formula = f'log_odds = {intercept:.4f} + '      # definition of the base formula structure
+    # formula += " + ".join(f'{coef:.4f}*{feat}' for coef, feat in zip(coefficients, features))   # use of zip to iterate over the coefficients and features lists together
+    # st.write("Logistic Regression formula:\n", formula)    
 
 st.header("CONCLUSIONS")
 st.markdown("""

@@ -941,7 +941,16 @@ with st.expander("Click to review the approach to hyperparameter tuning"):
     # Generated quality measures
     print(classification_report(y_test2, y_predict3))
 
-    
+
+
+                          precision    recall  f1-score   support
+
+               0       0.75      0.73      0.74      8027
+               1       0.73      0.75      0.74      7964
+
+        accuracy                           0.74     15991
+       macro avg       0.74      0.74      0.74     15991
+    weighted avg       0.74      0.74      0.74     15991
     """
     st.code(code34, language="python")
     # logmodel3 = LogisticRegression(solver='sag', max_iter=400, C=100, random_state=42)
@@ -961,16 +970,6 @@ with st.expander("Click to review the approach to hyperparameter tuning"):
 
     
     st.markdown("""
-                      precision    recall  f1-score   support
-
-               0       0.75      0.73      0.74      8027
-               1       0.73      0.75      0.74      7964
-
-        accuracy                           0.74     15991
-       macro avg       0.74      0.74      0.74     15991
-    weighted avg       0.74      0.74      0.74     15991
-    
-    
     There was no notable improvement in model performance with the hyperparameter tuning - accuracy remained at 0.74.
 
     The use of emsemble learning models such as random forests and gradient boosting machines did not improve performance when working with version "A" of this dataset and therefore it was anticipated that no further improvement would be achieved by considering those models here.""")

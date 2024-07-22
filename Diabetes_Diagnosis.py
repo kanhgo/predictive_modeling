@@ -34,6 +34,7 @@ with st.expander("Click to review the EDA steps taken"):
     import seaborn as sns
     import matplotlib.pyplot as plt
     import requests
+    from io import StringIO
     """
     st.code(code, language='python')
     
@@ -44,7 +45,7 @@ with st.expander("Click to review the EDA steps taken"):
         response = requests.get(DATA_URL)
         if response.status_code == 200:
           data = response.content.decode('utf-8')
-          df = pd.read_csv(data)
+          df = pd.read_csv(StringIO(data))
           return df
         else:
           st.error('Failed to load data')

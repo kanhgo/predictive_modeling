@@ -684,7 +684,7 @@ with st.expander("Click to review the process"):
        'DiffWalk', 'Age', 'Income'],
       dtype='object')
     """
-    # st.code(code28, language="python")
+    st.code(code28, language="python")
     # rfecvXG = rfecvXG.fit(X_train, y_train)
     # optimal_num = rfecvXG.n_features_
     # Best_features = features[rfecvXG.support_]
@@ -703,7 +703,7 @@ with st.expander("Click to review the process"):
     plt.xlabel('y_test')
     plt.ylabel('y_predicted')
     """    
-    # st.code(code29, language="python")
+    st.code(code29, language="python")
     # y_predictXG = rfecvXG.predict(X_test)
     # st.write(classification_report(y_test, y_predictXG))
     # fig = plt.figure()

@@ -18,8 +18,8 @@ lint:
 format:
 	black app.py test_app.py
 
-all
+all:
 	install lint format test
 
-all-note
+all-note:
 	install test_note

@@ -1,8 +1,9 @@
 import pandas as pd
 from app import get_model_parameters
 
+
 def app_features(df):
-    ''' Test app logic for handling complete / incomplete data'''
+    """Test app logic for handling complete / incomplete data"""
     # Get model parameters
     coefficients, _ = get_model_parameters()
     features = list(coefficients.keys())

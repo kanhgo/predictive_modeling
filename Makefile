@@ -16,4 +16,4 @@ lint:
 	pylint --disable=R,C app.py test_app.py
 
 format:
-	black app.py
+	black app.py test_app.py

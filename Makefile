@@ -1,6 +1,10 @@
 install:
 	pip install --upgrade pip &&\
-		pip install -r requirements.txt	
+		pip install -r requirements-app.txt	
+
+install-note:
+	pip install --upgrade pip &&\
+		pip install -r requirements-note.txt
 
 test:
 	python -m pytest -vv --cov=hello test_app.py

@@ -2,4 +2,4 @@ streamlit==1.32.2
 pandas==2.2.2
 numpy==1.26.4
 pytest==8.4.2
-pytest-cov==7.0.0q
+pytest-cov==7.0.0

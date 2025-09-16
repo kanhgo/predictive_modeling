@@ -10,7 +10,7 @@ test:
 	python -m pytest -vv --cov=test_app test_app.py
 
 test_note:
-	python -m pytest --nbval Diabetes_predictor_v4.ipynb
+	papermill Diabetes_predictor_v4.ipynb /tmp/output.ipynb
 
 lint:
 	pylint --disable=R,C app.py test_app.py

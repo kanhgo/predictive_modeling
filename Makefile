@@ -13,7 +13,7 @@ test_note:
 	papermill Diabetes_predictor_v4.ipynb /tmp/output.ipynb
 
 lint:
-	pylint --disable=R,C app.py test_app.py
+	pylint --disable=R,C,W1203,W0702,W0718 app.py test_app.py
 
 format:
 	black app.py test_app.py

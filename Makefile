@@ -7,7 +7,7 @@ install-note:
 		pip install -r requirements-note.txt
 
 test:
-	python -m pytest -vv --cov=test_app test_app.py
+	python -m pytest -vv --cov=app test_app.py
 
 test_note:
 	papermill Diabetes_predictor_v4.ipynb /tmp/output.ipynb

@@ -1,9 +1,54 @@
 name: App and Notebook CI
 
 on:
-  [push]
-
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+      
 jobs:
+  check-for-changes:
+  #dorny/paths-filter is a dedicated github action that can check for file edits
+    runs-on: ubuntu-latest
+    outputs:
+      notebooks_edited: ${{ steps.filter.outputs.notebooks }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Check for changed notebook files
+        id: filter
+        uses: dorny/paths-filter@v2
+        with:
+          filters: |
+            notebooks:
+              - 'Diabetes_predictor_v4.ipynb'
+
+  run-notebook:
+    # This job will only run if a notebook file has been changed.
+    needs: check-for-changes
+    if: needs.check-for-changes.outputs.notebooks_edited == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          make install-note
+      
+      - name: Test notebook with Papermill
+        # Use papermill to execute the notebook non-interactively.
+        # This will run all cells and save the output.
+        # If the included test fails, the raised error will fail the entire build.
+        run: |
+          make test_note
+
   build:
     runs-on: ubuntu-latest
     steps:
@@ -31,24 +76,3 @@ jobs:
         run: |
           make test     
           
-  run-notebook:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-
-      - name: Install dependencies
-        run: |
-          make install-note
-      
-      - name: Test notebook with Papermill
-        # Use papermill to execute the notebook non-interactively.
-        # This will run all cells and save the output.
-        # If the included test fails, the raised error will fail the entire build.
-        run: |
-          make test_note

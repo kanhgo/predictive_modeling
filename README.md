@@ -1,3 +1,5 @@
+[![App and Notebook CI](https://github.com/kanhgo/predictive_modeling/actions/workflows/main.yml/badge.svg)](https://github.com/kanhgo/predictive_modeling/actions/workflows/main.yml)
+
 # EMPOWERING ACTION FOR BETTER HEALTH OUTCOMES
 # Objective
 To develop a predictive model to forecast the likelihood of diabetes diagnosis using demographic and behavioral risk factors from the CDCs BRFSS 2015 dataset.

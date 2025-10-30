@@ -15,3 +15,8 @@ Althought this dataset and modeling exercise is US focused, it also provides a r
 - Obtained clean and composed of 253,680 rows of survey responses, with 21 feature variables.
 - The feature variables are predominantly categorical (including numeric ranges such as 5-year age ranges, or income ranges), with the classes represented by nominals e.g. 0, 1 (where the numbers are just labels and don't represent any order). BMI, number of days mental health not good (MentHlth), and number of days physical health not good (PhysHlth) are the continuous variables present.
 - The target variable has three (3) classes which have also been represented by nominals: 0 - no diabetes or only gestational, 1 - prediabetes, 2 - diabetes.
+
+## App
+An app was created using Streamlit, with the predictive model evaluated in this exercise as the engine. Users are directed to upload data as a csv file, which is checked for completeness (all expected columns present) before it is processed, generating a downloadable file with the predicted diabetes status.
+
+**N.B.** While taking note of the declared limitations (addressed in the "Conclusions" section of the "Diabetes_predictor_v4.ipynb), this exercise demonstrates an appreciation and understanding of the CI/CD process.

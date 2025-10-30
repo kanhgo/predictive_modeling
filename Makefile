@@ -20,4 +20,4 @@ format:
 
 all: install lint format test 
 
-all-note: install test_note
+all-note: install-note test_note
